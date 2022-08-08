@@ -91,7 +91,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1371035836303889848}
   - component: {fileID: 1371035836303889855}
-  - component: {fileID: 1371035836303889854}
   - component: {fileID: 1371035836303889849}
   m_Layer: 8
   m_Name: Main Camera
@@ -157,14 +156,6 @@ Camera:
   m_OcclusionCulling: 1
   m_StereoConvergence: 10
   m_StereoSeparation: 0.022
---- !u!81 &1371035836303889854
-AudioListener:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1371035836303889853}
-  m_Enabled: 1
 --- !u!114 &1371035836303889849
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -275,11 +266,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   controller: {fileID: 1371035837392504472}
-  groundCheck: {fileID: 1371035837219452882}
   jumpHeight: 3
-  groundDistance: 0.4
+  crouchingHeight: 1.25
+  standingHeight: 3.8
   gravity: -19.62
   speed: 12
+  groundCheck: {fileID: 1371035837219452882}
   groundMask:
     serializedVersion: 2
     m_Bits: 512
+  groundDistance: 0.4
