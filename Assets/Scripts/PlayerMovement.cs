@@ -10,6 +10,8 @@ public class PlayerMovement : MonoBehaviour
     [Header("Character Variables")]
     [SerializeField] private float jumpHeight = 3f;
     [SerializeField] private float crouchingHeight = 1.25f;
+    [SerializeField] private float timeToCrouch = 0.25f;
+
     [SerializeField] private float standingHeight = 3.8f;
     [SerializeField] private float gravity = -9.81f;
     [SerializeField] private float speed;
@@ -26,6 +28,8 @@ public class PlayerMovement : MonoBehaviour
 
     Vector3 velocity;
     Vector3 move;
+    Vector3 crouchingCenter = new Vector3(0f, 0.5f, 0f);
+    Vector3 standingCenter = new Vector3(0f, 0f, 0f);
 
     float x;
     float z;
@@ -52,7 +56,7 @@ public class PlayerMovement : MonoBehaviour
             isSprinting = true;
             speed = speed * 2;
         }
-        
+
         if (Input.GetKeyUp(KeyCode.LeftShift) && isGrounded)
         {
             speed = speed / 2;
@@ -64,17 +68,18 @@ public class PlayerMovement : MonoBehaviour
             isCrouching = true;
             speed = speed / 2;
             controller.height = crouchingHeight;
+            controller.center = crouchingCenter;
+            Debug.Log("Crouch :" + controller.center);
         }
-
+        //Crouch to stand 
         if (Input.GetKeyUp(KeyCode.LeftControl) && controller.height == crouchingHeight)
         {
             isCrouching = false;
             speed = speed * 2;
-            controller.height = standingHeight;
-
+            StartCoroutine(StandRoutine());
+            Debug.Log("Stand :" + controller.center);
         }
 
-        Debug.Log(speed);
 
         x = Input.GetAxis("Horizontal");
         z = Input.GetAxis("Vertical");
@@ -82,5 +87,21 @@ public class PlayerMovement : MonoBehaviour
         controller.Move(move * speed * Time.deltaTime);
         velocity.y += gravity * Time.deltaTime;
         controller.Move(velocity * Time.deltaTime);
+    }
+    IEnumerator StandRoutine()
+    {
+        float timeElapse = 0f;
+        Vector3 currentCenter = controller.center;
+        while (timeElapse < timeToCrouch)
+        {
+            controller.height = Mathf.Lerp(crouchingHeight, standingHeight, timeElapse / timeToCrouch);
+            controller.center = Vector3.Lerp(currentCenter, standingCenter, timeElapse / timeToCrouch);
+            timeElapse += Time.deltaTime;
+
+            yield return null;
+
+        }
+        controller.height = standingHeight;
+        controller.center = standingCenter;
     }
 }
