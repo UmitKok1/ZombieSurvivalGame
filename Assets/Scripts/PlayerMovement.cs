@@ -9,6 +9,9 @@ public class PlayerMovement : MonoBehaviour
 
     [Header("Character Variables")]
     [SerializeField] private float jumpHeight = 3f;
+    [SerializeField] private float sprintSpeed = 18f;
+    [SerializeField] private float normalSpeed = 9f;
+    [SerializeField] private float crouchingSpeed = 4.5f;
     [SerializeField] private float crouchingHeight = 1.25f;
     [SerializeField] private float timeToCrouch = 0.25f;
 
@@ -54,33 +57,31 @@ public class PlayerMovement : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.LeftShift) && isGrounded)
         {
             isSprinting = true;
-            speed = speed * 2;
+            speed = sprintSpeed;
         }
-
+        //Sprint to walk
         if (Input.GetKeyUp(KeyCode.LeftShift) && isGrounded)
         {
-            speed = speed / 2;
+            speed = normalSpeed;
         }
 
         //Crouching
         if (Input.GetKeyDown(KeyCode.LeftControl) && isGrounded)
         {
             isCrouching = true;
-            speed = speed / 2;
+            speed = crouchingSpeed;
             controller.height = crouchingHeight;
             controller.center = crouchingCenter;
             Debug.Log("Crouch :" + controller.center);
         }
-        //Crouch to stand 
+        //Crouch to walk 
         if (Input.GetKeyUp(KeyCode.LeftControl) && controller.height == crouchingHeight)
         {
             isCrouching = false;
-            speed = speed * 2;
+            speed = normalSpeed;
             StartCoroutine(StandRoutine());
             Debug.Log("Stand :" + controller.center);
         }
-
-
         x = Input.GetAxis("Horizontal");
         z = Input.GetAxis("Vertical");
         move = transform.right * x + transform.forward * z;
