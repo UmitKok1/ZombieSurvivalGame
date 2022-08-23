@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerMovement : MonoBehaviour
+public class PlayerMovement : MonoBehaviour,IDamageable
 {
     [Header("Character Controller")]
     [SerializeField] private CharacterController controller;
@@ -33,6 +33,16 @@ public class PlayerMovement : MonoBehaviour
     Vector3 move;
     Vector3 crouchingCenter = new Vector3(0f, 0.5f, 0f);
     Vector3 standingCenter = new Vector3(0f, 0f, 0f);
+    public int health
+    {
+        get { return health; }
+        set { health = value; }
+    }
+    public int experience
+    {
+        get { return experience; }
+        set { experience = value; }
+    }
 
     float x;
     float z;
@@ -102,5 +112,20 @@ public class PlayerMovement : MonoBehaviour
         }
         controller.height = standingHeight;
         controller.center = standingCenter;
+    }
+
+    public void TakeDamage(int dmg)
+    {
+        health -= dmg;
+
+        if (health <= 0)
+        {
+            Die();
+        }
+    }
+
+    public void Die()
+    {
+        Debug.Log("GAME OVER");
     }
 }
