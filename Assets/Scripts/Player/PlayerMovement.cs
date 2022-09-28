@@ -46,35 +46,49 @@ public class PlayerMovement : MonoBehaviour,IDamageable
 
     float x;
     float z;
-
-
     void Update()
     {
         isGrounded = Physics.CheckSphere(groundCheck.position, groundDistance, groundMask);
-        if (isGrounded && velocity.y < 0)
+        if (isGrounded)
         {
-            velocity.y = -2f;
+            Jump();
+            Sprinting();
         }
-
-        // Jumping
-        if (Input.GetButtonDown("Jump") && isGrounded || Input.GetButtonDown("Jump") && isCrouching)
+        Crouching();
+        Move();
+    }
+    void Move()
+    {
+        x = Input.GetAxis("Horizontal");
+        z = Input.GetAxis("Vertical");
+        move = transform.right * x + transform.forward * z;
+        controller.Move(move * speed * Time.deltaTime);
+        velocity.y += gravity * Time.deltaTime;
+        controller.Move(velocity * Time.deltaTime);
+    }
+    void Jump()
+    {
+        if (Input.GetButtonDown("Jump") /*&& isGrounded*/ /*|| Input.GetButtonDown("Jump") && isCrouching*/)
         {
             velocity.y = Mathf.Sqrt(jumpHeight * -2f * gravity);
         }
-
-
+    }
+    void Sprinting()
+    {
         // Sprinting
-        if (Input.GetKeyDown(KeyCode.LeftShift) && isGrounded)
+        if (Input.GetKeyDown(KeyCode.LeftShift))
         {
             isSprinting = true;
             speed = sprintSpeed;
         }
         //Sprint to walk
-        if (Input.GetKeyUp(KeyCode.LeftShift) && isGrounded)
+        if (Input.GetKeyUp(KeyCode.LeftShift))
         {
             speed = normalSpeed;
         }
-
+    }
+    void Crouching()
+    {
         //Crouching
         if (Input.GetKeyDown(KeyCode.LeftControl) && isGrounded)
         {
@@ -90,12 +104,6 @@ public class PlayerMovement : MonoBehaviour,IDamageable
             speed = normalSpeed;
             StartCoroutine(StandRoutine());
         }
-        x = Input.GetAxis("Horizontal");
-        z = Input.GetAxis("Vertical");
-        move = transform.right * x + transform.forward * z;
-        controller.Move(move * speed * Time.deltaTime);
-        velocity.y += gravity * Time.deltaTime;
-        controller.Move(velocity * Time.deltaTime);
     }
     IEnumerator StandRoutine()
     {

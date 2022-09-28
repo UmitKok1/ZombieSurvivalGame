@@ -6,10 +6,12 @@ public class Gun : MonoBehaviour
     private int damage;
     private float range;
     private float rateOfFire;
-    public Camera fpsCamera;
-
+    private Camera fpsCamera;
+    public ParticleSystem muzzleFlash;
+    public Transform muzzleTransform;
     private void Start()
     {
+        fpsCamera = Camera.main;
         damage = gunScriptable.damage;
         range = gunScriptable.range;
         rateOfFire = gunScriptable.rateOfFire;
@@ -24,16 +26,15 @@ public class Gun : MonoBehaviour
     void Shoot()
     {
         RaycastHit hit;
-        Debug.Log("BOOOOM");
+        muzzleFlash.Play();
         if (Physics.Raycast(fpsCamera.transform.position, fpsCamera.transform.forward, out hit, range))
         {
             Enemy enemy = hit.transform.GetComponent<Enemy>();
-            Debug.Log("BOOOOM");
             if (enemy != null)
             {
+                
                 enemy.TakeDamage(damage);
-                Debug.Log("BOOOOM");
-            }
+            }       
         }
 
 
