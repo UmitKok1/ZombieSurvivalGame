@@ -31,6 +31,52 @@ Transform:
   m_Father: {fileID: 6161185158352642746}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &8428010759143539196
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4812023163687664619}
+  - component: {fileID: 6193285305396466183}
+  m_Layer: 0
+  m_Name: Pool
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4812023163687664619
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8428010759143539196}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -23.649292, y: -33.77264, z: 6.1360836}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 2102608933837447833}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &6193285305396466183
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8428010759143539196}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5ae23ed1d16c0cc4cb0afe91fbfec8bf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemsToPool: []
+  pooledObjects:
+  - {fileID: 1000010844420130, guid: 4edabb1c0dde62743b137378c7d22980, type: 3}
 --- !u!1 &8662267978375143348
 GameObject:
   m_ObjectHideFlags: 0
@@ -60,6 +106,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 6161185158352642746}
+  - {fileID: 4812023163687664619}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -78,6 +125,7 @@ MonoBehaviour:
   gunScriptable: {fileID: 11400000, guid: 5b7c00a1bce0d1c42a75682d70374237, type: 2}
   muzzleFlash: {fileID: 6617257080300721968}
   muzzleTransform: {fileID: 3842435482098083490}
+  impactEffect: {fileID: 1000010844420130, guid: 4edabb1c0dde62743b137378c7d22980, type: 3}
 --- !u!1001 &6161185158352517178
 PrefabInstance:
   m_ObjectHideFlags: 0
