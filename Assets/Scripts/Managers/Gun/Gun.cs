@@ -2,6 +2,7 @@ using UnityEngine;
 
 public class Gun : MonoBehaviour
 {
+    [SerializeField] private ObjectPool objectPool = null;
     public GunScriptable gunScriptable;
     private int damage;
     private float range;
@@ -35,7 +36,7 @@ public class Gun : MonoBehaviour
             {               
                 enemy.TakeDamage(damage);
             }
-            if (hit.transform.gameObject!=null)
+            if (hit.transform.gameObject.tag=="Objects")
             {
                 ShowTrack();
             }
@@ -47,8 +48,10 @@ public class Gun : MonoBehaviour
     }
     void ShowTrack()
     {
-        GameObject temp;
-        temp = Instantiate(impactEffect, hit.point, Quaternion.LookRotation(hit.normal));
-        temp.transform.SetParent(hit.transform);
+        GameObject temp = objectPool.GetPooledObject(0);
+        //temp = Instantiate(impactEffect, hit.point, Quaternion.LookRotation(hit.normal));
+        temp.gameObject.transform.position = hit.point;
+        temp.transform.rotation = Quaternion.LookRotation(hit.normal);
+        //temp.transform.SetParent(hit.transform);
     }
 }
