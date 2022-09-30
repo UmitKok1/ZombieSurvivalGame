@@ -28,7 +28,7 @@ public class Enemy : MonoBehaviour, IDamageable
 
     public void Die()
     {
-        Destroy(gameObject);
+        gameObject.SetActive(false);
     }
 
 }

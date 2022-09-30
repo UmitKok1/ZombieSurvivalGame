@@ -11,7 +11,7 @@ public class EnemyAI : MonoBehaviour
     void Start()
     {
         navMeshAgent.speed = enemyScriptable.speed;
-        
+        target = GameObject.FindGameObjectWithTag("Player").transform;
     }
     private void Update()
     {

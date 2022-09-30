@@ -49,9 +49,7 @@ public class Gun : MonoBehaviour
     void ShowTrack()
     {
         GameObject temp = objectPool.GetPooledObject(0);
-        //temp = Instantiate(impactEffect, hit.point, Quaternion.LookRotation(hit.normal));
         temp.gameObject.transform.position = hit.point;
         temp.transform.rotation = Quaternion.LookRotation(hit.normal);
-        //temp.transform.SetParent(hit.transform);
     }
 }
